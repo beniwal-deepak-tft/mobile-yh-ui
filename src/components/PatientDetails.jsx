@@ -14,10 +14,11 @@ import { FaArrowLeft } from "react-icons/fa";
 const PatientDetails = ({ patient }) => {
 //   const [isEnrolled, setIsEnrolled] = useState(patient.isEnrolledInProgram);
   const [showUpcomingAppointments, setShowUpcomingAppointments] =
-    useState(false);
-  const [showPatientPrescriptions, setShowPatientPrescriptions] = useState(false);
+    useState(true);
+  const [showPatientPrescriptions, setShowPatientPrescriptions] = useState(true);
+  const [showPatientReport, setShowPatientReport] = useState(true);
   const [showHistoricalAppointments, setShowHistoricalAppointments] =
-    useState(false);
+    useState(true);
   const [showModal, setShowModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
 //   const toggleEnrolledInProgram = () => {
@@ -54,7 +55,10 @@ const PatientDetails = ({ patient }) => {
       >
         <Card.Body style={{ display: "flex", alignItems: "center" }}>
           <img
-            src={patient.general_info.profile_photo}
+            src={
+              patient?.general_info?.profile_photo ||
+              "https://via.placeholder.com/150"
+            }
             alt="Profile"
             style={{
               width: "120px",
@@ -63,9 +67,10 @@ const PatientDetails = ({ patient }) => {
               marginRight: "20px", // Space between the image and the name
             }}
           />
-          <h4>
-            {`${patient.general_info.first_name} ${patient.general_info.last_name}`}
-          </h4>
+          <div style={{ fontSize: "34px" , textTransform: "capitalize"}} >
+            {`${patient?.general_info?.first_name} ${patient?.general_info?.last_name}` ||
+              "N/A"}
+          </div>
         </Card.Body>
       </Card>
 
@@ -80,7 +85,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Age:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.age}
+              {patient?.general_info?.age || "N/A"}
             </Col>
           </Row>
 
@@ -89,7 +94,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Email:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.email}
+              {patient?.general_info?.email || "N/A"}
             </Col>
           </Row>
 
@@ -98,7 +103,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Gender:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.gender}
+              {patient?.general_info?.gender}
             </Col>
           </Row>
 
@@ -107,7 +112,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Location:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.location || "N/A"}
+              {patient?.general_info?.location || "N/A"}
             </Col>
           </Row>
 
@@ -116,7 +121,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Date of Birth:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.dob}
+              {patient?.general_info?.dob}
             </Col>
           </Row>
 
@@ -125,7 +130,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>ID:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.userId}
+              {patient?.general_info?.userId}
             </Col>
           </Row>
 
@@ -134,7 +139,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Mobile Number:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.phone_number}
+              {patient?.general_info?.phone_number}
             </Col>
           </Row>
         </Card.Body>
@@ -151,7 +156,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Height:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.height.value}
+              {patient?.general_info?.height?.value}
             </Col>
           </Row>
 
@@ -160,7 +165,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Weight:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.weight.value}
+              {patient?.general_info?.weight?.value}
             </Col>
           </Row>
 
@@ -169,7 +174,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>BMI:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.general_info.bmi}
+              {patient?.general_info?.bmi}
             </Col>
           </Row>
 
@@ -178,10 +183,8 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Waist Circumference:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {
-                patient.static_info.medical_metrics.anthropometric_measurements
-                  .waist_circumference
-              }
+              {patient?.static_info?.medical_metrics
+                ?.anthropometric_measurements?.waist_circumference || "N/A"}
             </Col>
           </Row>
         </Card.Body>
@@ -198,7 +201,10 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Fasting:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.static_info.medical_metrics.blood_sugar_profile.fasting}
+              {
+                patient?.static_info?.medical_metrics?.blood_sugar_profile
+                  ?.fasting
+              }
             </Col>
           </Row>
 
@@ -208,8 +214,8 @@ const PatientDetails = ({ patient }) => {
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
               {
-                patient.static_info.medical_metrics.blood_sugar_profile
-                  .post_prandial
+                patient?.static_info?.medical_metrics?.blood_sugar_profile
+                  ?.post_prandial
               }
             </Col>
           </Row>
@@ -219,7 +225,10 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>HbA1c:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.static_info.medical_metrics.blood_sugar_profile.hba1c}
+              {
+                patient?.static_info?.medical_metrics?.blood_sugar_profile
+                  ?.hba1c
+              }
             </Col>
           </Row>
 
@@ -229,8 +238,8 @@ const PatientDetails = ({ patient }) => {
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
               {
-                patient.static_info.medical_metrics.blood_sugar_profile
-                  .last_checked
+                patient?.static_info?.medical_metrics?.blood_sugar_profile
+                  ?.last_checked
               }
             </Col>
           </Row>
@@ -244,9 +253,10 @@ const PatientDetails = ({ patient }) => {
         </Card.Header>
         <Card.Body>
           <Form.Check
+            disabled
             type="switch"
             id="enrolledSwitch"
-            checked={patient.general_info.is_mrp_enrolled}
+            checked={patient?.general_info?.is_mrp_enrolled}
           />
         </Card.Body>
       </Card>
@@ -261,7 +271,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Primary Conditions:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.static_info.primary_conditions.map(
+              {patient?.static_info?.primary_conditions?.map(
                 (condition) => condition || "N/A"
               )}
             </Col>
@@ -274,14 +284,14 @@ const PatientDetails = ({ patient }) => {
               </strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.static_info.risk_factors.map(
+              {patient?.static_info?.risk_factors?.map(
                 (riskFactor) => riskFactor
               ) || "N/A"}
             </Col>
           </Row>
 
           <Row style={{ marginBottom: "15px" }}>
-            <Col xs={4}>
+            <Col xs={6}>
               <strong style={{ fontSize: "16px" }}>Management:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}></Col>
@@ -292,9 +302,10 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Current Medications:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.static_info.current_medications.map((medication) => (
+              {patient?.static_info?.current_medications?.map((medication) => (
                 <div key={medication.id}>
-                  {medication.name} - {medication.dose} - {medication.frequency}
+                  {medication?.name} - {medication?.dosage} -{" "}
+                  {medication?.frequency}
                 </div>
               )) || "N/A"}
             </Col>
@@ -313,7 +324,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Scan Date:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.face_scan_info[0].createdAt}
+              {patient?.face_scan_info[0]?.createdAt || "N/A"}
             </Col>
           </Row>
 
@@ -322,7 +333,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>SpO2%:</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.face_scan_info[0].oxygen_saturation}
+              {patient?.face_scan_info[0]?.oxygen_saturation || "N/A"}
             </Col>
           </Row>
           <Row style={{ marginBottom: "15px" }}>
@@ -330,7 +341,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Pulse Rate(bpm):</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.face_scan_info[0].heart_rate}
+              {patient?.face_scan_info[0]?.heart_rate || "N/A"}
             </Col>
           </Row>
           <Row style={{ marginBottom: "15px" }}>
@@ -340,7 +351,7 @@ const PatientDetails = ({ patient }) => {
               </strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.face_scan_info[0].blood_pressure}
+              {patient?.face_scan_info[0]?.blood_pressure || "N/A"}
             </Col>
           </Row>
           <Row style={{ marginBottom: "15px" }}>
@@ -350,7 +361,7 @@ const PatientDetails = ({ patient }) => {
               </strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.face_scan_info[0].respiration_rate}
+              {patient?.face_scan_info[0]?.respiration_rate || "N/A"}
             </Col>
           </Row>
           <Row style={{ marginBottom: "15px" }}>
@@ -358,7 +369,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>HbA1C(%):</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.face_scan_info[0].hba1c}
+              {patient?.face_scan_info[0]?.hba1c || "N/A"}
             </Col>
           </Row>
           <Row style={{ marginBottom: "15px" }}>
@@ -366,7 +377,7 @@ const PatientDetails = ({ patient }) => {
               <strong style={{ fontSize: "16px" }}>Hemoglobin(g/dL) :</strong>
             </Col>
             <Col xs={8} style={{ fontSize: "16px" }}>
-              {patient.face_scan_info[0].hemoglobin}
+              {patient?.face_scan_info[0]?.hemoglobin || "N/A"}
             </Col>
           </Row>
         </Card.Body>
@@ -434,35 +445,35 @@ const PatientDetails = ({ patient }) => {
               <Col xs={4}>
                 <strong>Requested Date:</strong>
               </Col>
-              <Col xs={8}>{selectedAppointment.requestedDate}</Col>
+              <Col xs={8}>{selectedAppointment?.requestedDate}</Col>
             </Row>
 
             <Row style={{ marginBottom: "15px" }}>
               <Col xs={4}>
                 <strong>Consultation Date:</strong>
               </Col>
-              <Col xs={8}>{selectedAppointment.consultationDate}</Col>
+              <Col xs={8}>{selectedAppointment?.consultationDate}</Col>
             </Row>
 
             <Row style={{ marginBottom: "15px" }}>
               <Col xs={4}>
                 <strong>Notes:</strong>
               </Col>
-              <Col xs={8}>{selectedAppointment.notes}</Col>
+              <Col xs={8}>{selectedAppointment?.notes}</Col>
             </Row>
 
             <Row style={{ marginBottom: "15px" }}>
               <Col xs={4}>
                 <strong>Voice Note:</strong>
               </Col>
-              <Col xs={8}>{selectedAppointment.voiceNote}</Col>
+              <Col xs={8}>{selectedAppointment?.voiceNote}</Col>
             </Row>
 
             <Row style={{ marginBottom: "15px" }}>
               <Col xs={4}>
                 <strong>Status:</strong>
               </Col>
-              <Col xs={8}>{selectedAppointment.status}</Col>
+              <Col xs={8}>{selectedAppointment?.status}</Col>
             </Row>
           </Modal.Body>
           <Modal.Footer>
@@ -490,6 +501,36 @@ const PatientDetails = ({ patient }) => {
               {patient?.upcomingAppointments?.map((appointment, index) => (
                 <ListGroup.Item key={index}>
                   {appointment?.date} - {appointment?.doctorName}
+                </ListGroup.Item>
+              )) || "No patient prescriptions."}
+            </ListGroup>
+          </Card.Body>
+        </Collapse>
+      </Card>
+      {/* Patient Report */}
+      <Card className="bg-white shadow-md rounded-lg mb-4">
+        <Card.Header
+          style={{ cursor: "pointer" }}
+          onClick={() => setShowPatientReport(!showPatientReport)}
+        >
+          <h5 style={{ fontSize: "18px" }}>
+            Patient Prescriptions
+            {showPatientReport ? "▲" : "▼"}
+          </h5>
+        </Card.Header>
+        <Collapse in={showPatientReport}>
+          <Card.Body style={{ maxHeight: "200px", overflowY: "auto" }}>
+            <ListGroup>
+              {patient?.report_info?.map((appointment, index) => (
+                <ListGroup.Item key={index}>
+                  <a
+                    href={appointment?.file_path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Report
+                  </a>
+                  {appointment?.file_name}
                 </ListGroup.Item>
               )) || "No patient prescriptions."}
             </ListGroup>
